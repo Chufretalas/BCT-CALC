@@ -11,8 +11,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="pt-br">
+      <body className='flex flex-col justify-between min-h-screen'>{children}</body>
     </html>
   )
 }
