@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import './globals.css'
 
 export const metadata = {
@@ -12,7 +13,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
-      <body className='flex flex-col justify-between min-h-screen'>{children}</body>
+      <body className='flex flex-col justify-between min-h-screen'>
+        <header className='flex justify-center'>
+          <Link className='text-xl font-bold' href={"/"}>BCT-CALC</Link>
+        </header>
+        {children}
+        <footer className='flex justify-center'>
+          <span className='text-sm'>Chufretalas 2023</span>
+        </footer>
+      </body>
     </html>
   )
 }
