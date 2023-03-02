@@ -13,7 +13,20 @@ function treatInputStr(str: string): string {
 }
 
 function parse2Number(array: string): number[] {
-    let filtered = array.split(";").filter((value) => value !== "" && !isNaN(+value))
+    let split = array.split(";")
+
+    split = split.map((value) => { // takes care of multiple .'s
+        let chars = value.split("")
+        let index = chars.indexOf(".")
+        if (index === -1) return value
+
+        let dirtySection = chars.splice(index + 1)
+        let cleanSection = dirtySection.filter((char) => char !== ".")
+
+        return chars.concat(cleanSection).join("")
+    })
+
+    let filtered = split.filter((value) => value !== "" && !isNaN(+value))
     return filtered.map((value) => +value) as number[]
 }
 
@@ -30,7 +43,7 @@ export default function parseInputs(xInput: string, yInput: string, oInput: stri
     if (yNumbers.length !== xNumbers.length
         || xNumbers.length !== oNumbers.length
         || yNumbers.length !== oNumbers.length) {
-            
+
         return {
             x: xNumbers,
             y: yNumbers,
