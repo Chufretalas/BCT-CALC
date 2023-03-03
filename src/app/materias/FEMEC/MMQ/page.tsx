@@ -72,6 +72,7 @@ export default function MMQ() {
 
                 if(xAll.some(isZero) || yAll.some(isZero) || oAll.some(isZero)) {
                     alert("0 não é um valor válido nos conjuntos de dados")
+                    return
                 }
                 setResults(computeMMQ(xAll, yAll, oAll))
                 alert("não ta pronto ainda, mas ta perto")
