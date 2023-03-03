@@ -1,11 +1,19 @@
 "use client"
 
+import computeMMQ from "@/helpers/MMQ/compute_mmq"
 import parseInputs from "@/helpers/MMQ/parse_inputs"
+import IMMQResult from "@/types/immqresults"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
+
+function isZero(value: number) {
+    return value === 0
+}
 
 export default function MMQ() {
 
-    let o2 = 0, x = 0, x2 = 0, y = 0, xy = 0, a = 0, b = 0, da = 0, db = 0
+    const [results, setResults] = useState<IMMQResult>({
+        o2: 0, x: 0, x2: 0, y: 0, xy: 0, a: 0, b: 0, da: 0, db: 0
+    })
 
     const [xAll, setXAll] = useState<number[]>([])
     const [yAll, setYAll] = useState<number[]>([])
@@ -42,18 +50,31 @@ export default function MMQ() {
                 <span className="text-red-800 font-bold text-lg">{error}</span>
             )}
             <div className="flex flex-col">
-                <span>{`σ2 = ${o2}`}</span>
-                <span>{`x = ${x}`}</span>
-                <span>{`x2 = ${x2}`}</span>
-                <span>{`y = ${y}`}</span>
-                <span>{`xy = ${xy}`}</span>
-                <span>{`a = ${a}`}</span>
-                <span>{`b = ${b}`}</span>
-                <span>{`∆a = ${da}`}</span>
-                <span >{`∆b = ${db}`}</span>
+                <span>{`σ2 = ${results.o2}`}</span>
+                <span>{`x = ${results.x}`}</span>
+                <span>{`x2 = ${results.x2}`}</span>
+                <span>{`y = ${results.y}`}</span>
+                <span>{`xy = ${results.xy}`}</span>
+                <span>{`a = ${results.a}`}</span>
+                <span>{`b = ${results.b}`}</span>
+                <span>{`∆a = ${results.da}`}</span>
+                <span >{`∆b = ${results.db}`}</span>
             </div>
             <button onClick={() => {
-                alert("isso não funciona ainda")
+                if(error !== "") {
+                    alert(error)
+                    return
+                }
+                if(xAll.length === 0) {
+                    alert("Insira algum valor nas caixas de texto")
+                    return
+                }
+
+                if(xAll.some(isZero) || yAll.some(isZero) || oAll.some(isZero)) {
+                    alert("0 não é um valor válido nos conjuntos de dados")
+                }
+                setResults(computeMMQ(xAll, yAll, oAll))
+                alert("não ta pronto ainda, mas ta perto")
             }}
                 className="bg-black text-white text-lg font-bold 
                 flex justify-center items-center px-4 py-2 
