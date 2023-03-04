@@ -75,7 +75,6 @@ export default function MMQ() {
                     return
                 }
                 setResults(computeMMQ(xAll, yAll, oAll))
-                alert("não ta pronto ainda, mas ta perto")
             }}
                 className="bg-black text-white text-lg font-bold 
                 flex justify-center items-center px-4 py-2 
