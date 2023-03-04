@@ -1,5 +1,6 @@
 "use client"
 
+import GreenButton from "@/components/GreenButton"
 import computeMMQ from "@/helpers/MMQ/compute_mmq"
 import parseInputs from "@/helpers/MMQ/parse_inputs"
 import IMMQResult from "@/types/immqresults"
@@ -37,49 +38,100 @@ export default function MMQ() {
     }, [xInput, yInput, oInput])
 
     return (
-        <main className="min-h-[80vh] mt-10 w-4/5 self-center">
+        <main className="min-h-[90vh] flex flex-col justify-start mt-4 px-4 text-xl lg:w-[60vw] lg:mx-auto">
             <div className="flex flex-col gap-y-2">
-                <ValueInput placeholder="valores de x" value={xInput} callback={setXInput} />
-                <span>{xAll.join(" - ")}</span>
-                <ValueInput placeholder="valores de y" value={yInput} callback={setYInput} />
-                <span>{yAll.join(" - ")}</span>
-                <ValueInput placeholder="valores da incerteza de y (σ)" value={oInput} callback={setOInput} />
-                <span>{oAll.join(" - ")}</span>
+                <div className="bg-custom-green-dark text-white py-1 rounded-lg shadow-lg shadow-slate-600 mb-2">
+                    <h2 className="pl-2 font-bold">X</h2>
+                    <ValueInput placeholder="valores de x" value={xInput} callback={setXInput} />
+                    {xAll.length !== 0 && (
+                        <span className=" text-white pb-1 pl-2">
+                            {xAll.join(" - ")}
+                        </span>
+                    )}
+                </div>
+                <div className="bg-custom-green-dark text-white py-1 rounded-lg shadow-lg shadow-slate-600 mb-2">
+                    <h2 className="pl-2 font-bold">Y</h2>
+                    <ValueInput placeholder="valores de y" value={yInput} callback={setYInput} />
+                    {yAll.length !== 0 && (
+                        <span className=" text-white pb-1 pl-2">
+                            {yAll.join(" - ")}
+                        </span>
+                    )}
+                </div>
+                <div className="bg-custom-green-dark text-white py-1 rounded-lg shadow-lg shadow-slate-600 mb-2">
+                    <h2 className="pl-2 font-bold">σ</h2>
+                    <ValueInput placeholder="valores de σ" value={oInput} callback={setOInput} />
+                    {oAll.length !== 0 && (
+                        <span className=" text-white pb-1 pl-2">
+                            {oAll.join(" - ")}
+                        </span>
+                    )}
+                </div>
             </div>
             {error !== "" && (
-                <span className="text-red-800 font-bold text-lg">{error}</span>
+                <span className="text-red-600 font-bold text-lg">{error}</span>
             )}
-            <div className="flex flex-col">
-                <span>{`σ2 = ${results.o2}`}</span>
-                <span>{`x = ${results.x}`}</span>
-                <span>{`x2 = ${results.x2}`}</span>
-                <span>{`y = ${results.y}`}</span>
-                <span>{`xy = ${results.xy}`}</span>
-                <span>{`a = ${results.a}`}</span>
-                <span>{`b = ${results.b}`}</span>
-                <span>{`∆a = ${results.da}`}</span>
-                <span >{`∆b = ${results.db}`}</span>
-            </div>
-            <button onClick={() => {
-                if(error !== "") {
-                    alert(error)
-                    return
-                }
-                if(xAll.length === 0) {
-                    alert("Insira algum valor nas caixas de texto")
-                    return
-                }
+            <table className="table-auto border-2 border-slate-900 my-3 text-md w-10/12 mx-auto">
+                <tbody>
+                    <tr className="odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white">
+                        <th className="border-r-2 border-slate-900">σ2</th>
+                        <th>{results.o2}</th>
+                    </tr>
+                    <tr className="odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white">
+                        <th className="border-r-2 border-slate-900">x</th>
+                        <th>{results.x}</th>
+                    </tr>
+                    <tr className="odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white">
+                        <th className="border-r-2 border-slate-900">x2</th>
+                        <th>{results.x2}</th>
+                    </tr>
+                    <tr className="odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white">
+                        <th className="border-r-2 border-slate-900">y</th>
+                        <th>{results.y}</th>
+                    </tr>
+                    <tr className="odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white">
+                        <th className="border-r-2 border-slate-900">xy</th>
+                        <th>{results.xy}</th>
+                    </tr>
+                    <tr className="odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white">
+                        <th className="border-r-2 border-slate-900">a</th>
+                        <th>{results.a}</th>
+                    </tr>
+                    <tr className="odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white">
+                        <th className="border-r-2 border-slate-900">b</th>
+                        <th>{results.b}</th>
+                    </tr>
+                    <tr className="odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white">
+                        <th className="border-r-2 border-slate-900">∆a</th>
+                        <th>{results.da}</th>
+                    </tr>
+                    <tr className="odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white">
+                        <th className="border-r-2 border-slate-900">∆b</th>
+                        <th>{results.db}</th>
+                    </tr>
+                </tbody>
+            </table>
+            <div className="flex justify-center">
+                <GreenButton>
+                    <button onClick={() => {
+                        if (error !== "") {
+                            alert(error)
+                            return
+                        }
+                        if (xAll.length === 0) {
+                            alert("Insira algum valor nas caixas de texto")
+                            return
+                        }
 
-                if(xAll.some(isZero) || yAll.some(isZero) || oAll.some(isZero)) {
-                    alert("0 não é um valor válido nos conjuntos de dados")
-                    return
-                }
-                setResults(computeMMQ(xAll, yAll, oAll))
-            }}
-                className="bg-black text-white text-lg font-bold 
-                flex justify-center items-center px-4 py-2 
-                rounded-lg border-4 border-red-500
-                mx-auto">Calcular</button>
+                        if (xAll.some(isZero) || yAll.some(isZero) || oAll.some(isZero)) {
+                            alert("0 não é um valor válido nos conjuntos de dados")
+                            return
+                        }
+                        setResults(computeMMQ(xAll, yAll, oAll))
+                    }}
+                    >Calcular</button>
+                </GreenButton>
+            </div>
         </main>
     )
 }
@@ -88,7 +140,7 @@ function ValueInput({ placeholder, value, callback }:
     { placeholder: string, value: string, callback: Dispatch<SetStateAction<string>> }) {
     return (
         <textarea className="bg-black 
-        rounded-lg border-2 w-full m-auto border-red-500  min-h-16 pl-2
+        rounded-md border-2 w-full border-custom-yellow  min-h-16 pl-2
          text-white inline" placeholder={placeholder} value={value}
             onChange={e => callback(e.currentTarget.value)} />
     )

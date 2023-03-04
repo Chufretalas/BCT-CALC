@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <>
-      <main className=''>
+      <main className='min-h-screen flex flex-col justify-start pt-16 lg:w-[60vw] lg:mx-auto'>
         <PagePicker title="Escolha uma matéria" pages={subjects} />
       </main>
     </>

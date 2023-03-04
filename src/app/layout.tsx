@@ -13,13 +13,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
-      <body className='flex flex-col justify-between min-h-screen'>
-        <header className='flex justify-center'>
-          <Link className='text-xl font-bold' href={"/"}>BCT-CALC</Link>
+      <body className='min-h-screen'>
+        <header className='flex justify-center bg-gradient-to-b
+         from-custom-green-light to-custom-green-dark text-custom-yellow'>
+          <Link className='text-2xl font-bold' href={"/"}>BCT-CALC</Link>
         </header>
         {children}
-        <footer className='flex justify-center'>
-          <span className='text-sm'>Chufretalas 2023</span>
+        <footer className='flex justify-center items-center relative bottom-0 w-full mx-auto'>
+          <span className='text-sm'>
+            <Link href='https://github.com/Chufretalas/BCT-CALC' target="_blank">
+              Chufretalas 2023
+            </Link>
+          </span>
         </footer>
       </body>
     </html>
