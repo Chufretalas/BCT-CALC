@@ -40,6 +40,15 @@ export default function MMQ() {
     return (
         <main className="min-h-[90vh] flex flex-col justify-start mt-4 px-4 text-xl lg:w-[60vw] lg:mx-auto">
             <div className="flex flex-col gap-y-2">
+
+                <button className="text-sm my-4 bg-custom-green-light text-white rounded-full" onClick={() => {
+                    let confirmExample: boolean = confirm("Essa ação apagará quaisquer dados nas caixas de input.\nDeseja ver o exemplo?")
+                    if (!confirmExample) return
+                    setXInput("1; 2; 3; 4; 5; 6 somente números . , ou ; são lidos")
+                    setYInput("1; 1.5; 4; 4,5; 5.8; 7")
+                    setOInput("0.3; 0.3; 0.5; 0.2; 0.4; 0.6 clique no botão no fim da página.")
+                }}>Clique aqui para ver um exemplo de como inserir os dados</button>
+
                 <div className="bg-custom-green-dark text-white py-1 rounded-lg shadow-lg shadow-slate-600 mb-2">
                     <h2 className="pl-2 font-bold">X</h2>
                     <ValueInput placeholder="valores de x" value={xInput} callback={setXInput} />
@@ -132,6 +141,7 @@ export default function MMQ() {
                     >Calcular</button>
                 </GreenButton>
             </div>
+
         </main>
     )
 }
