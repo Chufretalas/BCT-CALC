@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import Link from 'next/link'
 import './globals.css'
 
@@ -26,6 +27,7 @@ export default function RootLayout({
             </Link>
           </span>
         </footer>
+        <Analytics/>
       </body>
     </html>
   )
