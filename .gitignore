@@ -38,3 +38,10 @@ next-env.d.ts
 .vscode
 
 testing_values.txt
+
+# cypress
+*.log
+*.aes
+cypress/screenshots
+cypress/videos
+cypress/logs

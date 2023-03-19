@@ -11,11 +11,11 @@ export default function PagePicker({ title, pages }:
             <div className="flex justify-center items-center">
                 {
                     pages.map((page, index) => (
-                        <GreenButton key={index}>
-                            <Link href={page.href}>
+                        <Link href={page.href}>
+                            <GreenButton key={index}>
                                 {page.title}
-                            </Link>
-                        </GreenButton>
+                            </GreenButton>
+                        </Link>
                     ))
                 }
             </div>

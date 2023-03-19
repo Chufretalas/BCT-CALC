@@ -47,11 +47,11 @@ export default function MMQ() {
                     setXInput("1; 2; 3; 4; 5; 6 somente números . , ou ; são lidos")
                     setYInput("1; 1.5; 4; 4,5; 5.8; 7")
                     setOInput("0.3; 0.3; 0.5; 0.2; 0.4; 0.6 clique no botão no fim da página.")
-                }}>Clique aqui para ver um exemplo de como inserir os dados</button>
+                }} cy-data="example">Clique aqui para ver um exemplo de como inserir os dados</button>
 
                 <div className="bg-custom-green-dark text-white py-1 rounded-lg shadow-lg shadow-slate-600 mb-2">
                     <h2 className="pl-2 font-bold">X</h2>
-                    <ValueInput placeholder="valores de x" value={xInput} callback={setXInput} />
+                    <ValueInput placeholder="valores de x" value={xInput} callback={setXInput} cyData={"xInputBox"}/>
                     {xAll.length !== 0 && (
                         <span className=" text-white pb-1 pl-2">
                             {xAll.join(" - ")}
@@ -60,7 +60,7 @@ export default function MMQ() {
                 </div>
                 <div className="bg-custom-green-dark text-white py-1 rounded-lg shadow-lg shadow-slate-600 mb-2">
                     <h2 className="pl-2 font-bold">Y</h2>
-                    <ValueInput placeholder="valores de y" value={yInput} callback={setYInput} />
+                    <ValueInput placeholder="valores de y" value={yInput} callback={setYInput} cyData={"yInputBox"}/>
                     {yAll.length !== 0 && (
                         <span className=" text-white pb-1 pl-2">
                             {yAll.join(" - ")}
@@ -69,7 +69,7 @@ export default function MMQ() {
                 </div>
                 <div className="bg-custom-green-dark text-white py-1 rounded-lg shadow-lg shadow-slate-600 mb-2">
                     <h2 className="pl-2 font-bold">σ</h2>
-                    <ValueInput placeholder="valores de σ" value={oInput} callback={setOInput} />
+                    <ValueInput placeholder="valores de σ" value={oInput} callback={setOInput} cyData={"oInputBox"}/>
                     {oAll.length !== 0 && (
                         <span className=" text-white pb-1 pl-2">
                             {oAll.join(" - ")}
@@ -121,37 +121,39 @@ export default function MMQ() {
                 </tbody>
             </table>
             <div className="flex justify-center">
-                <GreenButton>
-                    <button onClick={() => {
-                        if (error !== "") {
-                            alert(error)
-                            return
-                        }
-                        if (xAll.length === 0) {
-                            alert("Insira algum valor nas caixas de texto")
-                            return
-                        }
+                <button onClick={() => {
+                    if (error !== "") {
+                        alert(error)
+                        return
+                    }
+                    if (xAll.length === 0) {
+                        alert("Insira algum valor nas caixas de texto")
+                        return
+                    }
 
-                        if (xAll.some(isZero) || yAll.some(isZero) || oAll.some(isZero)) {
-                            alert("0 não é um valor válido nos conjuntos de dados")
-                            return
-                        }
-                        setResults(computeMMQ(xAll, yAll, oAll))
-                    }}
-                    >Calcular</button>
-                </GreenButton>
+                    if (xAll.some(isZero) || yAll.some(isZero) || oAll.some(isZero)) {
+                        alert("0 não é um valor válido nos conjuntos de dados")
+                        return
+                    }
+                    setResults(computeMMQ(xAll, yAll, oAll))
+                }}
+                >
+                    <GreenButton>
+                        Calcular
+                    </GreenButton>
+                </button>
             </div>
 
         </main>
     )
 }
 
-function ValueInput({ placeholder, value, callback }:
-    { placeholder: string, value: string, callback: Dispatch<SetStateAction<string>> }) {
+function ValueInput({ placeholder, value, callback, cyData }:
+    { placeholder: string, value: string, callback: Dispatch<SetStateAction<string>>, cyData: string }) {
     return (
         <textarea className="bg-black 
         rounded-md border-2 w-full border-custom-yellow  min-h-16 pl-2
          text-white inline" placeholder={placeholder} value={value}
-            onChange={e => callback(e.currentTarget.value)} />
+            onChange={e => callback(e.currentTarget.value)}  cy-data={cyData}/>
     )
 }
