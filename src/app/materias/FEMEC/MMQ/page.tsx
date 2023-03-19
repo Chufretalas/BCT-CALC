@@ -84,39 +84,39 @@ export default function MMQ() {
                 <tbody>
                     <tr className="odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white">
                         <th className="border-r-2 border-slate-900">σ2</th>
-                        <th>{results.o2}</th>
+                        <th cy-data="o2Result">{results.o2}</th>
                     </tr>
                     <tr className="odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white">
                         <th className="border-r-2 border-slate-900">x</th>
-                        <th>{results.x}</th>
+                        <th cy-data="xResult">{results.x}</th>
                     </tr>
                     <tr className="odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white">
                         <th className="border-r-2 border-slate-900">x2</th>
-                        <th>{results.x2}</th>
+                        <th cy-data="x2Result">{results.x2}</th>
                     </tr>
                     <tr className="odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white">
                         <th className="border-r-2 border-slate-900">y</th>
-                        <th>{results.y}</th>
+                        <th cy-data="yResult">{results.y}</th>
                     </tr>
                     <tr className="odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white">
                         <th className="border-r-2 border-slate-900">xy</th>
-                        <th>{results.xy}</th>
+                        <th cy-data="xyResult">{results.xy}</th>
                     </tr>
                     <tr className="odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white">
                         <th className="border-r-2 border-slate-900">a</th>
-                        <th>{results.a}</th>
+                        <th cy-data="aResult">{results.a}</th>
                     </tr>
                     <tr className="odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white">
                         <th className="border-r-2 border-slate-900">b</th>
-                        <th>{results.b}</th>
+                        <th cy-data="bResult">{results.b}</th>
                     </tr>
                     <tr className="odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white">
                         <th className="border-r-2 border-slate-900">∆a</th>
-                        <th>{results.da}</th>
+                        <th cy-data="daResult">{results.da}</th>
                     </tr>
                     <tr className="odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white">
                         <th className="border-r-2 border-slate-900">∆b</th>
-                        <th>{results.db}</th>
+                        <th cy-data="dbResult">{results.db}</th>
                     </tr>
                 </tbody>
             </table>
@@ -137,7 +137,7 @@ export default function MMQ() {
                     }
                     setResults(computeMMQ(xAll, yAll, oAll))
                 }}
-                >
+                 cy-data="computeButton">
                     <GreenButton>
                         Calcular
                     </GreenButton>
