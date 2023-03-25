@@ -1,10 +1,15 @@
 "use client"
 
+import GreenButton from "@/components/GreenButton"
 import { useState } from "react"
 
 export type binary = (0 | 1)[]
 
 export default function HammingCode() {
+
+    const [parity, setParity] = useState<"even" | "odd">("even")
+
+    const [changed, setChanged] = useState(false)
 
     const [input, setInput] = useState("")
 
@@ -17,7 +22,10 @@ export default function HammingCode() {
                 <textarea className="bg-black text-2xl
                  rounded-md border-2 w-full border-custom-yellow  min-h-16 pl-2
                  text-white inline" placeholder={"0100100010100101"} value={input}
-                    onChange={(e) => setInput(e.currentTarget.value)} cy-data="binaryInput" />
+                    onChange={(e) => {
+                        setInput(e.currentTarget.value)
+                        setChanged(true)
+                    }} cy-data="binaryInput" />
                 {parsed.length !== 0 && (
                     <span className=" text-white pb-1 pl-2">
                         {parsed.join(" - ")}
@@ -25,7 +33,42 @@ export default function HammingCode() {
                 )}
             </div>
 
-            <span>outra coisa</span>
+            <h2 className="mt-2 font-bold">Tipo de paridade:</h2>
+            <form className="flex justify-around mt-2 mb-4">
+                <fieldset className="bg-custom-green-light text-white py-1 px-4 rounded-full
+                     min-w-[5.5rem] flex justify-center shadow-sm"
+                    onClick={() => {
+                        setParity("even")
+                        setChanged(true)
+                    }}>
+                    <input type="radio" id="even" name="parity_type" value="even"
+                        className="mr-1" checked={parity === "even"} onChange={() => console.log("even")} />
+                    <label htmlFor="even">Par</label>
+                </fieldset>
+                <fieldset className="bg-custom-green-light text-white py-1 px-4 rounded-full
+                     min-w-[5.5rem] flex justify-center shadow-sm"
+                    onClick={() => {
+                        setParity("odd")
+                        setChanged(true)
+                    }}>
+                    <input type="radio" id="odd" name="parity_type" value="odd"
+                        className="mr-1" checked={parity === "odd"} onChange={() => console.log("odd")} />
+                    <label htmlFor="odd">Ímpar</label>
+                </fieldset>
+            </form>
+
+            <button className="mx-auto" onClick={() => {
+                setChanged(false)
+            }}>
+                <GreenButton>{changed ? "Calcular *" : "Calcular"}</GreenButton>
+            </button>
+
+            <hr className="mt-4 mb-2" />
+
+            {/* ANSWER */}
+            <section>
+                <span>dnasdsa</span>
+            </section>
         </main>
     )
 }
