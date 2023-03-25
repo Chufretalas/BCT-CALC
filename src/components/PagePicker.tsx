@@ -8,12 +8,14 @@ export default function PagePicker({ title, pages }:
             <h2 className="justify-self-start text-lg font-bold bg-slate-200 shadow-md shadow-slate-600
             pl-2 p-1 border-l-4 border-l-blue-500
             self-start justify-start inline">{title}</h2>
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center gap-4">
                 {
                     pages.map((page, index) => (
-                        <Link href={page.href}>
-                            <GreenButton key={index}>
-                                {page.title}
+                        <Link href={page.href} key={index}>
+                            <GreenButton >
+                                <div className="min-w-[4rem] text-center">
+                                    {page.title}
+                                </div>
                             </GreenButton>
                         </Link>
                     ))

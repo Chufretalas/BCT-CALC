@@ -51,7 +51,7 @@ export default function MMQ() {
 
                 <div className="bg-custom-green-dark text-white py-1 rounded-lg shadow-lg shadow-slate-600 mb-2">
                     <h2 className="pl-2 font-bold">X</h2>
-                    <ValueInput placeholder="valores de x" value={xInput} callback={setXInput} cyData={"xInputBox"}/>
+                    <ValueInput placeholder="valores de x" value={xInput} callback={setXInput} cyData={"xInputBox"} />
                     {xAll.length !== 0 && (
                         <span className=" text-white pb-1 pl-2">
                             {xAll.join(" - ")}
@@ -60,7 +60,7 @@ export default function MMQ() {
                 </div>
                 <div className="bg-custom-green-dark text-white py-1 rounded-lg shadow-lg shadow-slate-600 mb-2">
                     <h2 className="pl-2 font-bold">Y</h2>
-                    <ValueInput placeholder="valores de y" value={yInput} callback={setYInput} cyData={"yInputBox"}/>
+                    <ValueInput placeholder="valores de y" value={yInput} callback={setYInput} cyData={"yInputBox"} />
                     {yAll.length !== 0 && (
                         <span className=" text-white pb-1 pl-2">
                             {yAll.join(" - ")}
@@ -69,7 +69,7 @@ export default function MMQ() {
                 </div>
                 <div className="bg-custom-green-dark text-white py-1 rounded-lg shadow-lg shadow-slate-600 mb-2">
                     <h2 className="pl-2 font-bold">σ</h2>
-                    <ValueInput placeholder="valores de σ" value={oInput} callback={setOInput} cyData={"oInputBox"}/>
+                    <ValueInput placeholder="valores de σ" value={oInput} callback={setOInput} cyData={"oInputBox"} />
                     {oAll.length !== 0 && (
                         <span className=" text-white pb-1 pl-2">
                             {oAll.join(" - ")}
@@ -137,7 +137,7 @@ export default function MMQ() {
                     }
                     setResults(computeMMQ(xAll, yAll, oAll))
                 }}
-                 cy-data="computeButton">
+                    cy-data="computeButton">
                     <GreenButton>
                         Calcular
                     </GreenButton>
@@ -154,6 +154,6 @@ function ValueInput({ placeholder, value, callback, cyData }:
         <textarea className="bg-black 
         rounded-md border-2 w-full border-custom-yellow  min-h-16 pl-2
          text-white inline" placeholder={placeholder} value={value}
-            onChange={e => callback(e.currentTarget.value)}  cy-data={cyData}/>
+            onChange={e => callback(e.currentTarget.value)} cy-data={cyData} />
     )
 }
