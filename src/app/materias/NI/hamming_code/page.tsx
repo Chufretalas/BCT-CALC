@@ -1,9 +1,10 @@
 "use client"
 
 import GreenButton from "@/components/GreenButton"
+import parseInput from "@/helpers/hamming_code/parse_input"
+import { binarySeq } from "@/types/binary_seq"
 import { useState } from "react"
 
-export type binary = (0 | 1)[]
 
 export default function HammingCode() {
 
@@ -13,7 +14,7 @@ export default function HammingCode() {
 
     const [input, setInput] = useState("")
 
-    const [parsed, setParsed] = useState<binary>([])
+    const [parsed, setParsed] = useState<binarySeq>([])
 
     return (
         <main className="min-h-[90vh] flex flex-col justify-start mt-4 px-4 text-xl lg:w-[60vw] lg:mx-auto">
@@ -25,10 +26,14 @@ export default function HammingCode() {
                     onChange={(e) => {
                         setInput(e.currentTarget.value)
                         setChanged(true)
-                    }} cy-data="binaryInput" />
+                    }}
+                    onKeyUp={(e) => {
+                        setParsed(parseInput(input))
+                    }}
+                    cy-data="binaryInput" />
                 {parsed.length !== 0 && (
                     <span className=" text-white pb-1 pl-2">
-                        {parsed.join(" - ")}
+                        {parsed.join(" ")}
                     </span>
                 )}
             </div>
@@ -58,6 +63,7 @@ export default function HammingCode() {
             </form>
 
             <button className="mx-auto" onClick={() => {
+                console.log(parsed)
                 setChanged(false)
             }}>
                 <GreenButton>{changed ? "Calcular *" : "Calcular"}</GreenButton>
