@@ -1,6 +1,7 @@
 "use client"
 
 import GreenButton from "@/components/GreenButton"
+import getParityBitCount from "@/helpers/hamming_code/get_parity_bit_count"
 import parseInput from "@/helpers/hamming_code/parse_input"
 import { binarySeq } from "@/types/binary_seq"
 import { useState } from "react"
@@ -63,7 +64,7 @@ export default function HammingCode() {
             </form>
 
             <button className="mx-auto" onClick={() => {
-                console.log(parsed)
+                console.log(getParityBitCount(parsed))
                 setChanged(false)
             }}>
                 <GreenButton>{changed ? "Calcular *" : "Calcular"}</GreenButton>
