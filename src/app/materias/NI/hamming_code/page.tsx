@@ -1,6 +1,7 @@
 "use client"
 
 import GreenButton from "@/components/GreenButton"
+import generateTruthTable from "@/helpers/hamming_code/generate_truth_table"
 import getParityBitCount from "@/helpers/hamming_code/get_parity_bit_count"
 import parseInput from "@/helpers/hamming_code/parse_input"
 import { binarySeq } from "@/types/binary_seq"
@@ -74,7 +75,7 @@ export default function HammingCode() {
 
             {/* ANSWER */}
             <section>
-                <span>dnasdsa</span>
+                <span onClick={() => console.log(generateTruthTable(+input))}>dnasdsa</span>
             </section>
         </main>
     )
