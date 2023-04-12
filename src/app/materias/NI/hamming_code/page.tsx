@@ -1,16 +1,18 @@
 "use client"
 
 import GreenButton from "@/components/GreenButton"
+import doTheHamming from "@/helpers/hamming_code/do_the_hamming"
 import generateTruthTable from "@/helpers/hamming_code/generate_truth_table"
 import getParityBitCount from "@/helpers/hamming_code/get_parity_bit_count"
 import parseInput from "@/helpers/hamming_code/parse_input"
 import { binarySeq } from "@/types/binary_seq"
+import { parityType } from "@/types/parity_type"
 import { useState } from "react"
 
 
 export default function HammingCode() {
 
-    const [parity, setParity] = useState<"even" | "odd">("even")
+    const [parity, setParity] = useState<parityType>("even")
 
     const [changed, setChanged] = useState(false)
 
@@ -65,7 +67,6 @@ export default function HammingCode() {
             </form>
 
             <button className="mx-auto" onClick={() => {
-                console.log(getParityBitCount(parsed))
                 setChanged(false)
             }}>
                 <GreenButton>{changed ? "Calcular *" : "Calcular"}</GreenButton>
@@ -75,7 +76,7 @@ export default function HammingCode() {
 
             {/* ANSWER */}
             <section>
-                <span onClick={() => console.log(generateTruthTable(+input))}>dnasdsa</span>
+                <span onClick={() => doTheHamming(parsed, "even")}>dnasdsa</span>
             </section>
         </main>
     )
