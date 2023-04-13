@@ -2,12 +2,11 @@
 
 import GreenButton from "@/components/GreenButton"
 import doTheHamming from "@/helpers/hamming_code/do_the_hamming"
-import generateTruthTable from "@/helpers/hamming_code/generate_truth_table"
-import getParityBitCount from "@/helpers/hamming_code/get_parity_bit_count"
 import parseInput from "@/helpers/hamming_code/parse_input"
 import { binarySeq } from "@/types/binary_seq"
+import IHammedResult from "@/types/IHammedResult"
 import { parityType } from "@/types/parity_type"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 
 export default function HammingCode() {
@@ -19,6 +18,10 @@ export default function HammingCode() {
     const [input, setInput] = useState("")
 
     const [parsed, setParsed] = useState<binarySeq>([])
+
+    const [error, setError] = useState("binário de input vazio!")
+
+    const [hammedResult, setHammedResult] = useState<IHammedResult>({ finalData: [], parityCount: 0, parityPositions: [], parityResp: [] })
 
     return (
         <main className="min-h-[90vh] flex flex-col justify-start mt-4 px-4 text-xl lg:w-[60vw] lg:mx-auto">
@@ -32,7 +35,13 @@ export default function HammingCode() {
                         setChanged(true)
                     }}
                     onKeyUp={(e) => {
-                        setParsed(parseInput(input))
+                        const parsedTemp = parseInput(input)
+                        setParsed(parsedTemp)
+                        if (parsedTemp.length === 0) {
+                            setError("binário de input vazio!")
+                        } else {
+                            setError("")
+                        }
                     }}
                     cy-data="binaryInput" />
                 {parsed.length !== 0 && (
@@ -41,7 +50,9 @@ export default function HammingCode() {
                     </span>
                 )}
             </div>
-
+            {error !== "" && (
+                <span className="text-red-600 font-bold text-lg">{error}</span>
+            )}
             <h2 className="mt-2 font-bold">Tipo de paridade:</h2>
             <form className="flex justify-around mt-2 mb-4">
                 <fieldset className="bg-custom-green-light text-white py-1 px-4 rounded-full
@@ -67,6 +78,12 @@ export default function HammingCode() {
             </form>
 
             <button className="mx-auto" onClick={() => {
+                if (error !== "") {
+                    return
+                }
+                const hammedResultTemp = doTheHamming(parsed, parity)
+                console.log(hammedResultTemp) //TODO: remove after debugging
+                setHammedResult(hammedResultTemp)
                 setChanged(false)
             }}>
                 <GreenButton>{changed ? "Calcular *" : "Calcular"}</GreenButton>
@@ -76,7 +93,7 @@ export default function HammingCode() {
 
             {/* ANSWER */}
             <section>
-                <span onClick={() => doTheHamming(parsed, "even")}>dnasdsa</span>
+                <span onClick={() => console.log(doTheHamming(parsed, "even"))}>dnasdsa</span>
             </section>
         </main>
     )

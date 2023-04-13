@@ -6,6 +6,8 @@ import getParity from "./get_parity";
 import getParityBitCount from "./get_parity_bit_count";
 
 export default function doTheHamming(source: binarySeq, parity: parityType) {
+    console.log(source);
+    
     const parityCount = getParityBitCount(source)
     const fullSize = parityCount + source.length
     const tt = generateTruthTable(parityCount)
