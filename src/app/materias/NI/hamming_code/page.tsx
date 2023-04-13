@@ -62,7 +62,7 @@ export default function HammingCode() {
                         setChanged(true)
                     }}>
                     <input type="radio" id="even" name="parity_type" value="even"
-                        className="mr-1" checked={parity === "even"} onChange={() => console.log("even")} />
+                        className="mr-1" checked={parity === "even"} />
                     <label htmlFor="even">Par</label>
                 </fieldset>
                 <fieldset className="bg-custom-green-light text-white py-1 px-4 rounded-full
@@ -72,7 +72,7 @@ export default function HammingCode() {
                         setChanged(true)
                     }}>
                     <input type="radio" id="odd" name="parity_type" value="odd"
-                        className="mr-1" checked={parity === "odd"} onChange={() => console.log("odd")} />
+                        className="mr-1" checked={parity === "odd"} />
                     <label htmlFor="odd">Ímpar</label>
                 </fieldset>
             </form>
@@ -82,7 +82,8 @@ export default function HammingCode() {
                     return
                 }
                 const hammedResultTemp = doTheHamming(parsed, parity)
-                console.log(hammedResultTemp) //TODO: remove after debugging
+                console.log(hammedResultTemp);
+                
                 setHammedResult(hammedResultTemp)
                 setChanged(false)
             }}>
@@ -93,7 +94,52 @@ export default function HammingCode() {
 
             {/* ANSWER */}
             <section>
-                <span onClick={() => console.log(doTheHamming(parsed, "even"))}>dnasdsa</span>
+                <h3 className="text-center font-bold underline mt-6 lg:mt-1">Dados Hammezados</h3>
+                <table className="table-auto border-2 border-slate-900 my-1 text-md min-w-10/12 mx-auto text-center">
+                    <thead>
+                        <tr className="bg-custom-green-dark text-custom-yellow">
+                            <th className="px-1">Tipo</th>
+                            <th className="px-1 border-x-2 border-black">Posição</th>
+                            <th className="px-1">Dados</th>
+                        </tr>
+                    </thead>
+                    <tbody className="">
+                        {hammedResult.finalData.map((v, i) => {
+                            return (
+                                <tr className={` ${hammedResult.parityPositions.includes(i+1)
+                                    ? "bg-red-300 text-black border-2 border-black"
+                                    : "odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white"}`}
+                                    key={i}>
+                                    <td className="text-start">{hammedResult.parityPositions.includes(i+1)
+                                        ? `Paridade-(${hammedResult.parityPositions.indexOf(i+1) + 1})`
+                                        : "Dado"}</td>
+                                    <td className="border-x-2 border-black">{i + 1}</td>
+                                    <td className="">{v}</td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+                <hr className="mt-4 mb-2" />
+                <h3 className="text-center font-bold underline mt-6 lg:mt-1">Responsabilidades das paridades</h3>
+                <table className="table-auto border-2 border-slate-900 my-1 text-md w-10/12 mx-auto text-center">
+                    <thead>
+                        <tr className="bg-custom-green-dark text-custom-yellow">
+                            <th className="border-2 border-black">Bit</th>
+                            <th>Posições</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {hammedResult.parityPositions.map((v, i) => {
+                            return (
+                                <tr className="text-sm odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white border-2 border-black" key={i}>
+                                    <td className="border-2 border-black font-bold">{`P-(${i + 1})`}</td>
+                                    <td>{hammedResult.parityResp[i].map((e) => e + 1).join(" - ")}</td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
             </section>
         </main>
     )

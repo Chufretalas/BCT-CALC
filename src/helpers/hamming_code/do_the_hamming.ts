@@ -6,8 +6,7 @@ import getParity from "./get_parity";
 import getParityBitCount from "./get_parity_bit_count";
 
 export default function doTheHamming(source: binarySeq, parity: parityType) {
-    console.log(source);
-    
+
     const parityCount = getParityBitCount(source)
     const fullSize = parityCount + source.length
     const tt = generateTruthTable(parityCount)
@@ -15,7 +14,7 @@ export default function doTheHamming(source: binarySeq, parity: parityType) {
     const parityPositions = []
 
     for (let i = 0; i < parityCount; i++) {
-        parityPositions.push(Math.pow(2, i)) //this is a 0 index base position, not a 1 index base like is shown in the UI
+        parityPositions.push(Math.pow(2, i)) //this is a 1 index base position, not a 0 index base like usual
     }
 
     let finalData: ((0 | 1) | "X")[] = []
@@ -35,7 +34,7 @@ export default function doTheHamming(source: binarySeq, parity: parityType) {
 
     // time to get the responsabilities
 
-    let resp: number[][] = [] // this is also zero index based
+    let resp: number[][] = []
 
     tt.forEach((row) => {
         resp.push(findAllIndexes(row, 1).map(v => v - 1))
