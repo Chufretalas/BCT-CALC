@@ -62,7 +62,7 @@ export default function HammingCode() {
                         setChanged(true)
                     }}>
                     <input type="radio" id="even" name="parity_type" value="even"
-                        className="mr-1" checked={parity === "even"} />
+                        className="mr-1" checked={parity === "even"} onChange={()=>{}}/>
                     <label htmlFor="even">Par</label>
                 </fieldset>
                 <fieldset className="bg-custom-green-light text-white py-1 px-4 rounded-full
@@ -72,7 +72,7 @@ export default function HammingCode() {
                         setChanged(true)
                     }}>
                     <input type="radio" id="odd" name="parity_type" value="odd"
-                        className="mr-1" checked={parity === "odd"} />
+                        className="mr-1" checked={parity === "odd"} onChange={()=>{}}/>
                     <label htmlFor="odd">Ímpar</label>
                 </fieldset>
             </form>
@@ -83,7 +83,7 @@ export default function HammingCode() {
                 }
                 const hammedResultTemp = doTheHamming(parsed, parity)
                 console.log(hammedResultTemp);
-                
+
                 setHammedResult(hammedResultTemp)
                 setChanged(false)
             }}>
@@ -106,12 +106,12 @@ export default function HammingCode() {
                     <tbody className="">
                         {hammedResult.finalData.map((v, i) => {
                             return (
-                                <tr className={` ${hammedResult.parityPositions.includes(i+1)
+                                <tr className={` ${hammedResult.parityPositions.includes(i + 1)
                                     ? "bg-red-300 text-black border-2 border-black"
                                     : "odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white"}`}
                                     key={i}>
-                                    <td className="text-start">{hammedResult.parityPositions.includes(i+1)
-                                        ? `Paridade-(${hammedResult.parityPositions.indexOf(i+1) + 1})`
+                                    <td className="text-start">{hammedResult.parityPositions.includes(i + 1)
+                                        ? `Paridade-(${hammedResult.parityPositions.indexOf(i + 1) + 1})`
                                         : "Dado"}</td>
                                     <td className="border-x-2 border-black">{i + 1}</td>
                                     <td className="">{v}</td>
