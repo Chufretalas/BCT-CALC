@@ -14,16 +14,15 @@ export default function doTheHamming(source: binarySeq, parity: parityType) {
     const parityPositions = []
 
     for (let i = 0; i < parityCount; i++) {
-        parityPositions.push(Math.pow(2, i)) //this is a 1 index base position, not a 0 index base like usual
+        parityPositions.push(Math.pow(2, i))
     }
 
     let finalData: ((0 | 1) | "X")[] = []
 
-
     const sourceCopy = [...source]
-    let i = 0;
+    let i = 1;
     while (finalData.length < fullSize) {
-        if (parityPositions.includes(i + 1)) {
+        if (parityPositions.includes(i)) {
             finalData.push("X")
         }
         else {
@@ -37,21 +36,28 @@ export default function doTheHamming(source: binarySeq, parity: parityType) {
     let resp: number[][] = []
 
     tt.forEach((row) => {
-        resp.push(findAllIndexes(row, 1).map(v => v - 1))
+        resp.push(findAllIndexes(row, 1))
     })
 
     resp.reverse()
 
     // populate the parity bits
 
-    resp.forEach((pBitResp, pBitIndex) => {
-        const finDataSlice: (0 | 1)[] = []
-        pBitResp.forEach((respIndex) => {
-            if (finalData[respIndex] !== "X" && finalData.length > respIndex) { // TODO: change this to regular for and break when the respIndex gets out of bounds instead of looping and doing nothing
+    resp.forEach((pBitResp) => {
+        const finDataSlice: binarySeq = []
+        for (let i = 0; i < pBitResp.length; i++) {
+            const respIndex = pBitResp[i] - 1 //this -1 is to convert the position to an index
+
+            if (respIndex >= finalData.length) {
+                break
+            }
+
+            if (finalData[respIndex] !== "X") {
                 finDataSlice.push(finalData[respIndex] as (0 | 1))
             }
-        })
-        finalData[pBitResp[0]] = getParity(finDataSlice, parity)
+        }
+
+        finalData[pBitResp[0] - 1] = getParity(finDataSlice, parity)
     })
 
     return {

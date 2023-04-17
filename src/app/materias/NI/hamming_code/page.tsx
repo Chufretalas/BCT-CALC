@@ -62,7 +62,7 @@ export default function HammingCode() {
                         setChanged(true)
                     }}>
                     <input type="radio" id="even" name="parity_type" value="even"
-                        className="mr-1" checked={parity === "even"} onChange={()=>{}}/>
+                        className="mr-1" checked={parity === "even"} onChange={() => { }} />
                     <label htmlFor="even">Par</label>
                 </fieldset>
                 <fieldset className="bg-custom-green-light text-white py-1 px-4 rounded-full
@@ -72,7 +72,7 @@ export default function HammingCode() {
                         setChanged(true)
                     }}>
                     <input type="radio" id="odd" name="parity_type" value="odd"
-                        className="mr-1" checked={parity === "odd"} onChange={()=>{}}/>
+                        className="mr-1" checked={parity === "odd"} onChange={() => { }} />
                     <label htmlFor="odd">Ímpar</label>
                 </fieldset>
             </form>
@@ -134,7 +134,7 @@ export default function HammingCode() {
                             return (
                                 <tr className="text-sm odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white border-2 border-black" key={i}>
                                     <td className="border-2 border-black font-bold">{`P-(${i + 1})`}</td>
-                                    <td>{hammedResult.parityResp[i].map((e) => e + 1).join(" - ")}</td>
+                                    <td>{hammedResult.parityResp[i].join(" - ")}</td>
                                 </tr>
                             )
                         })}

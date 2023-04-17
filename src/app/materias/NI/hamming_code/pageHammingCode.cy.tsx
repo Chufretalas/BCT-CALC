@@ -15,9 +15,9 @@ describe('test the doTheHamming function', () => {
       parityCount: 3,
       parityPositions: [1, 2, 4],
       parityResp: [
-        [0, 2, 4, 6],
-        [1, 2, 5, 6],
-        [3, 4, 5, 6]
+        [1, 3, 5, 7],
+        [2, 3, 6, 7],
+        [4, 5, 6, 7]
       ]
     }
 
@@ -34,9 +34,9 @@ describe('test the doTheHamming function', () => {
       parityCount: 3,
       parityPositions: [1, 2, 4],
       parityResp: [
-        [0, 2, 4, 6],
-        [1, 2, 5, 6],
-        [3, 4, 5, 6]
+        [1, 3, 5, 7],
+        [2, 3, 6, 7],
+        [4, 5, 6, 7]
       ]
     }
 
@@ -54,10 +54,10 @@ describe('test the doTheHamming function', () => {
       parityCount: 4,
       parityPositions: [1, 2, 4, 8],
       parityResp: [
-        [0, 2, 4, 6, 8, 10, 12, 14],
-        [1, 2, 5, 6, 9, 10, 13, 14],
-        [3, 4, 5, 6, 11, 12, 13, 14],
-        [7, 8, 9, 10, 11, 12, 13, 14]
+        [1, 3, 5, 7, 9, 11, 13, 15],
+        [2, 3, 6, 7, 10, 11, 14, 15],
+        [4, 5, 6, 7, 12, 13, 14, 15],
+        [8, 9, 10, 11, 12, 13, 14, 15]
       ]
     }
 
@@ -74,10 +74,10 @@ describe('test the doTheHamming function', () => {
       parityCount: 4,
       parityPositions: [1, 2, 4, 8],
       parityResp: [
-        [0, 2, 4, 6, 8, 10, 12, 14],
-        [1, 2, 5, 6, 9, 10, 13, 14],
-        [3, 4, 5, 6, 11, 12, 13, 14],
-        [7, 8, 9, 10, 11, 12, 13, 14]
+        [1, 3, 5, 7, 9, 11, 13, 15],
+        [2, 3, 6, 7, 10, 11, 14, 15],
+        [4, 5, 6, 7, 12, 13, 14, 15],
+        [8, 9, 10, 11, 12, 13, 14, 15]
       ]
     }
 
