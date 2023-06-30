@@ -6,14 +6,14 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
 
   const subjects = [
-    { title: "FEMEC", href: "/materias/FEMEC" },
-    { title: "NI", href: "/materias/NI" },
+    { title: "MMQ", href: "/calcs/MMQ" },
+    { title: "Código de Hamming", href: "/calcs/hamming_code" },
   ]
 
   return (
     <>
       <main className='min-h-screen flex flex-col justify-start pt-16 lg:w-[60vw] lg:mx-auto'>
-        <PagePicker title="Escolha uma matéria" pages={subjects} />
+        <PagePicker title={"Escolha uma \"calculadora\""} pages={subjects} />
       </main>
     </>
   )
