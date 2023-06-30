@@ -1,6 +1,9 @@
 import PagePicker from "@/components/PagePicker";
+import { redirect } from "next/navigation";
 
 export default function Femec() {
+
+    redirect("/")
 
     const calcs = [
         {href: "/materias/FEMEC/MMQ", title: "MMQ"}

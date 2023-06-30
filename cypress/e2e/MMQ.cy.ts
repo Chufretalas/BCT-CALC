@@ -4,8 +4,8 @@ describe('navigates to the MMQ page and uses it', () => {
   })
 
   it('passes', () => {
-    cy.get('a[href*="/materias/FEMEC"]').click()
-    cy.get('a[href*="/materias/FEMEC/MMQ"]').click()
+    cy.get('a[href*="/calcs/MMQ"]').click()
+
     cy.getCyData('example').click()
     cy.getCyData('xInputBox').should("contain", "1; 2; 3; 4; 5; 6 somente números . , ou ; são lidos")
     cy.getCyData('yInputBox').should("contain", "1; 1.5; 4; 4,5; 5.8; 7")
@@ -24,9 +24,8 @@ describe('navigates to the MMQ page and uses it', () => {
   })
 
   it('passes', () => {
-    cy.get('a[href*="/materias/FEMEC"]').click()
-    cy.get('a[href*="/materias/FEMEC/MMQ"]').click()
-    
+    cy.get('a[href*="/calcs/MMQ"]').click()
+
     cy.getCyData('xInputBox').type("0,9;1,87;2,95;3,94")
     cy.getCyData('yInputBox').type("16;33;52;70")
     cy.getCyData('oInputBox').type("1;1;1;1")
