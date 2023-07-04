@@ -25,6 +25,8 @@ export default function MMQ() {
     const [yInput, setYInput] = useState("")
     const [oInput, setOInput] = useState("")
 
+    const [changed, setChanged] = useState(false)
+
     useEffect(() => {
         const result = parseInputs(xInput, yInput, oInput)
         setXAll(result.x)
@@ -35,6 +37,7 @@ export default function MMQ() {
         } else {
             setError("")
         }
+        setChanged(true)
     }, [xInput, yInput, oInput])
 
     return (
@@ -46,7 +49,7 @@ export default function MMQ() {
                     if (!confirmExample) return
                     setXInput("1; 2; 3; 4; 5; 6 somente números . , ou ; são lidos")
                     setYInput("1; 1.5; 4; 4,5; 5.8; 7")
-                    setOInput("0.3; 0.3; 0.5; 0.2; 0.4; 0.6 clique no botão no fim da página.")
+                    setOInput("0.3; 0.3; 0.5; 0.2; 0.4; 0.6 clique no botão 'calcular'.")
                 }} cy-data="example">Clique aqui para ver um exemplo de como inserir os dados</button>
 
                 <div className="bg-custom-green-dark text-white py-1 rounded-lg shadow-lg shadow-slate-600 mb-2">
@@ -80,6 +83,30 @@ export default function MMQ() {
             {error !== "" && (
                 <span className="text-red-600 font-bold text-lg">{error}</span>
             )}
+            <div className="flex justify-center mt-2">
+                <button onClick={() => {
+                    if (error !== "") {
+                        alert(error)
+                        return
+                    }
+                    if (xAll.length === 0) {
+                        alert("Insira algum valor nas caixas de texto")
+                        return
+                    }
+
+                    if (xAll.some(isZero) || yAll.some(isZero) || oAll.some(isZero)) {
+                        alert("0 não é um valor válido nos conjuntos de dados")
+                        return
+                    }
+                    setResults(computeMMQ(xAll, yAll, oAll))
+                    setChanged(false)
+                }}
+                    cy-data="computeButton">
+                    <GreenButton>
+                        {changed ? "Calcular *" : "Calcular"}
+                    </GreenButton>
+                </button>
+            </div>
             <table className="table-auto border-2 border-slate-900 my-3 text-md w-10/12 mx-auto">
                 <tbody>
                     <tr className="odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white">
@@ -120,29 +147,7 @@ export default function MMQ() {
                     </tr>
                 </tbody>
             </table>
-            <div className="flex justify-center">
-                <button onClick={() => {
-                    if (error !== "") {
-                        alert(error)
-                        return
-                    }
-                    if (xAll.length === 0) {
-                        alert("Insira algum valor nas caixas de texto")
-                        return
-                    }
 
-                    if (xAll.some(isZero) || yAll.some(isZero) || oAll.some(isZero)) {
-                        alert("0 não é um valor válido nos conjuntos de dados")
-                        return
-                    }
-                    setResults(computeMMQ(xAll, yAll, oAll))
-                }}
-                    cy-data="computeButton">
-                    <GreenButton>
-                        Calcular
-                    </GreenButton>
-                </button>
-            </div>
 
         </main>
     )
