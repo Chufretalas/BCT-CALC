@@ -57,7 +57,7 @@ export default function MMQ() {
                     <ValueInput placeholder="valores de x" value={xInput} callback={setXInput} cyData={"xInputBox"} />
                     {xAll.length !== 0 && (
                         <span className=" text-white pb-1 pl-2">
-                            {xAll.join(" - ")}
+                            {xAll.join(" | ")}
                         </span>
                     )}
                 </div>
@@ -66,7 +66,7 @@ export default function MMQ() {
                     <ValueInput placeholder="valores de y" value={yInput} callback={setYInput} cyData={"yInputBox"} />
                     {yAll.length !== 0 && (
                         <span className=" text-white pb-1 pl-2">
-                            {yAll.join(" - ")}
+                            {yAll.join(" | ")}
                         </span>
                     )}
                 </div>
@@ -75,7 +75,7 @@ export default function MMQ() {
                     <ValueInput placeholder="valores de σ" value={oInput} callback={setOInput} cyData={"oInputBox"} />
                     {oAll.length !== 0 && (
                         <span className=" text-white pb-1 pl-2">
-                            {oAll.join(" - ")}
+                            {oAll.join(" | ")}
                         </span>
                     )}
                 </div>

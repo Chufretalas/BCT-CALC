@@ -7,7 +7,7 @@ interface IParseResult {
 }
 
 function treatInputStr(str: string): string {
-    str = str.replaceAll(/[^0-9,.;]+/g, "")
+    str = str.replaceAll(/[^0-9,.;-]+/g, "")
     str = str.replaceAll(",", ".")
     return str
 }
