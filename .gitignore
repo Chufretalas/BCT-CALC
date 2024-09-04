@@ -45,3 +45,4 @@ testing_values.txt
 cypress/screenshots
 cypress/videos
 cypress/logs
+cypress/downloads
