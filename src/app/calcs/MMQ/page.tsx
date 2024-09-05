@@ -2,12 +2,17 @@
 
 import GreenButton from "@/components/GreenButton"
 import computeMMQ from "@/helpers/MMQ/compute_mmq"
-import parseInputs from "@/helpers/MMQ/parse_inputs"
 import IMMQResult from "@/types/immqresults"
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 
 function isZero(value: number) {
     return value === 0
+}
+
+interface InputRow {
+    x: number | undefined
+    y: number | undefined
+    o: number | undefined
 }
 
 export default function MMQ() {
@@ -16,86 +21,98 @@ export default function MMQ() {
         o2: 0, x: 0, x2: 0, y: 0, xy: 0, a: 0, b: 0, da: 0, db: 0
     })
 
-    const [xAll, setXAll] = useState<number[]>([])
-    const [yAll, setYAll] = useState<number[]>([])
-    const [oAll, setOAll] = useState<number[]>([])
-    const [error, setError] = useState("")
-
-    const [xInput, setXInput] = useState("")
-    const [yInput, setYInput] = useState("")
-    const [oInput, setOInput] = useState("")
+    const [tableRows, setTableRows] = useState<InputRow[]>([{ x: undefined, y: undefined, o: undefined }])
 
     const [changed, setChanged] = useState(false)
 
     useEffect(() => {
-        const result = parseInputs(xInput, yInput, oInput)
-        setXAll(result.x)
-        setYAll(result.y)
-        setOAll(result.o)
-        if (result.erroed) {
-            setError(result.errorReason!)
-        } else {
-            setError("")
-        }
+
         setChanged(true)
-    }, [xInput, yInput, oInput])
+    }, [tableRows])
 
     return (
-        <main className="min-h-[90vh] flex flex-col justify-start mt-4 px-4 text-xl lg:w-[60vw] lg:mx-auto">
-            <div className="flex flex-col gap-y-2">
+        <main className="min-h-[90vh] flex flex-col justify-start mt-4 px-4 text-xl lg:w-[80vw] lg:mx-auto">
+            <div className="flex flex-col gap-y-2 justify-center items-center">
 
-                <button className="text-sm my-4 bg-custom-green-light text-white rounded-full" onClick={() => {
+                <button className="text-sm my-4 bg-custom-green-light text-white rounded-full px-4" onClick={() => {
                     let confirmExample: boolean = confirm("Essa ação apagará quaisquer dados nas caixas de input.\nDeseja ver o exemplo?")
                     if (!confirmExample) return
-                    setXInput("1; 2; 3; 4; 5; 6 somente números . , ou ; são lidos")
-                    setYInput("1; 1.5; 4; 4,5; 5.8; 7")
-                    setOInput("0.3; 0.3; 0.5; 0.2; 0.4; 0.6 clique no botão 'calcular'.")
+                    setTableRows([
+                        { x: 1, y: 1, o: 0.3 },
+                        { x: 2, y: 1.5, o: 0.3 },
+                        { x: 3, y: 4, o: 0.5 },
+                        { x: 4, y: 4.5, o: 0.2 },
+                        { x: 5, y: 5.8, o: 0.4 },
+                        { x: 6, y: 7, o: 0.6 },
+                    ])
                 }} cy-data="example">Clique aqui para ver um exemplo de como inserir os dados</button>
 
-                <div className="bg-custom-green-dark text-white py-1 rounded-lg shadow-lg shadow-slate-600 mb-2">
-                    <h2 className="pl-2 font-bold">X</h2>
-                    <ValueInput placeholder="valores de x" value={xInput} callback={setXInput} cyData={"xInputBox"} />
-                    {xAll.length !== 0 && (
-                        <span className=" text-white pb-1 pl-2">
-                            {xAll.join(" | ")}
-                        </span>
-                    )}
-                </div>
-                <div className="bg-custom-green-dark text-white py-1 rounded-lg shadow-lg shadow-slate-600 mb-2">
-                    <h2 className="pl-2 font-bold">Y</h2>
-                    <ValueInput placeholder="valores de y" value={yInput} callback={setYInput} cyData={"yInputBox"} />
-                    {yAll.length !== 0 && (
-                        <span className=" text-white pb-1 pl-2">
-                            {yAll.join(" | ")}
-                        </span>
-                    )}
-                </div>
-                <div className="bg-custom-green-dark text-white py-1 rounded-lg shadow-lg shadow-slate-600 mb-2">
-                    <h2 className="pl-2 font-bold">σ</h2>
-                    <ValueInput placeholder="valores de σ" value={oInput} callback={setOInput} cyData={"oInputBox"} />
-                    {oAll.length !== 0 && (
-                        <span className=" text-white pb-1 pl-2">
-                            {oAll.join(" | ")}
-                        </span>
-                    )}
-                </div>
+                <table className="table-fixed w-full mx-auto">
+                    <thead onClick={() => console.log(tableRows)}>
+                        <tr>
+                            <th className="bg-custom-green-light text-custom-yellow rounded-tl-xl w-[30%]">X</th>
+                            <th className="bg-custom-green-light text-custom-yellow w-[30%]">Y</th>
+                            <th className="bg-custom-green-light text-custom-yellow rounded-tr-xl w-[30%]">σ</th>
+                            <th className="w-auto"></th>
+                        </tr>
+                    </thead>
+                    <tbody className="">
+                        {tableRows.map((row, idx) => (
+                            <tr key={idx} className="[&>td>input]:odd:bg-gray-200 [&>td:has(>input)]:odd:bg-gray-200">
+                                <td className="border-2 border-black w-full">
+                                    <input className="text-right w-full font-semibold" placeholder={`${idx + 1}º valor de X`}
+                                        type="number" name={`ipt_x_${idx}`} id={`ipt_x_${idx}`} value={row.x ?? ""} onChange={e => {
+                                            const newTableRows = [...tableRows]
+                                            newTableRows[idx].x = +e.currentTarget.value
+                                            setTableRows(newTableRows)
+                                        }
+                                        } />
+                                </td>
+                                <td className="border-2 border-black w-full">
+                                    <input className="text-right w-full font-semibold" placeholder={`${idx + 1}º valor de Y`}
+                                        type="number" name={`ipt_y_${idx}`} id={`ipt_y_${idx}`} value={row.y ?? ""} onChange={e => {
+                                            const newTableRows = [...tableRows]
+                                            newTableRows[idx].y = +e.currentTarget.value
+                                            setTableRows(newTableRows)
+                                        }
+                                        } />
+                                </td>
+                                <td className="border-2 border-black w-full">
+                                    <input className="text-right w-full font-semibold" placeholder={`${idx + 1}º valor de σ`}
+                                        type="number" name={`ipt_o_${idx}`} id={`ipt_o_${idx}`} value={row.o ?? ""} onChange={e => {
+                                            const newTableRows = [...tableRows]
+                                            newTableRows[idx].o = +e.currentTarget.value
+                                            setTableRows(newTableRows)
+                                        }
+                                        } />
+                                </td>
+                                <td className="w-[25px]">
+                                    <button className="text-sm bg-red-700 hover:bg-red-800 text-white ml-2 py-2 px-3 font-semibold rounded-md "
+                                        tabIndex={-1} onClick={() => {
+                                            const newTableRows = [...tableRows]
+                                            newTableRows.splice(idx, 1)
+                                            setTableRows(newTableRows)
+                                        }}>X</button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <button className="py-2 px-3 bg-blue-500 text-white font-semibold text-base rounded-full drop-shadow-lg
+                             hover:bg-blue-600 active:scale-90 duration-75 mb-5"
+                    tabIndex={-1} onClick={() => {
+                        setTableRows([...tableRows, { x: undefined, y: undefined, o: undefined }])
+                    }}>Adicionar Linha</button>
             </div>
-            {error !== "" && (
-                <span className="text-red-600 font-bold text-lg">{error}</span>
-            )}
+
             <div className="flex justify-center mt-2">
                 <button onClick={() => {
-                    if (error !== "") {
-                        alert(error)
-                        return
-                    }
-                    if (xAll.length === 0) {
-                        alert("Insira algum valor nas caixas de texto")
-                        return
-                    }
+                    const xAll = tableRows.map(row => row.x ?? 0)
+                    const yAll = tableRows.map(row => row.y ?? 0)
+                    const oAll = tableRows.map(row => row.o ?? 0)
 
                     if (xAll.some(isZero) || yAll.some(isZero) || oAll.some(isZero)) {
-                        alert("0 não é um valor válido nos conjuntos de dados")
+                        alert("0 não é um valor válido nos conjuntos de dados\nNão deixe nenhum campo da tabela não preenchido")
                         return
                     }
                     setResults(computeMMQ(xAll, yAll, oAll))
@@ -107,7 +124,7 @@ export default function MMQ() {
                     </GreenButton>
                 </button>
             </div>
-            <table className="table-auto border-2 border-slate-900 my-3 text-md w-10/12 mx-auto">
+            <table className="table-auto border-2 border-slate-900 my-3 text-md w-8/12 mx-auto">
                 <tbody>
                     <tr className="odd:bg-slate-200 odd:text-black even:bg-slate-700 even:text-white">
                         <th className="border-r-2 border-slate-900">σ2</th>
@@ -150,15 +167,5 @@ export default function MMQ() {
 
 
         </main>
-    )
-}
-
-function ValueInput({ placeholder, value, callback, cyData }:
-    { placeholder: string, value: string, callback: Dispatch<SetStateAction<string>>, cyData: string }) {
-    return (
-        <textarea className="bg-black 
-        rounded-md border-2 w-full border-custom-yellow  min-h-16 pl-2
-         text-white inline" placeholder={placeholder} value={value}
-            onChange={e => callback(e.currentTarget.value)} cy-data={cyData} />
     )
 }
