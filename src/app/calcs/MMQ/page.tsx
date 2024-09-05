@@ -60,7 +60,7 @@ export default function MMQ() {
                         {tableRows.map((row, idx) => (
                             <tr key={idx} className="[&>td>input]:odd:bg-gray-200 [&>td:has(>input)]:odd:bg-gray-200">
                                 <td className="border-2 border-black w-full">
-                                    <input className="text-right w-full font-semibold" placeholder={`${idx + 1}º valor de X`}
+                                    <input cy-data={`ipt_x_${idx}`} className="text-right w-full font-semibold" placeholder={`${idx + 1}º valor de X`}
                                         type="number" name={`ipt_x_${idx}`} id={`ipt_x_${idx}`} value={row.x ?? ""} onChange={e => {
                                             const newTableRows = [...tableRows]
                                             newTableRows[idx].x = +e.currentTarget.value
@@ -69,7 +69,7 @@ export default function MMQ() {
                                         } />
                                 </td>
                                 <td className="border-2 border-black w-full">
-                                    <input className="text-right w-full font-semibold" placeholder={`${idx + 1}º valor de Y`}
+                                    <input cy-data={`ipt_y_${idx}`} className="text-right w-full font-semibold" placeholder={`${idx + 1}º valor de Y`}
                                         type="number" name={`ipt_y_${idx}`} id={`ipt_y_${idx}`} value={row.y ?? ""} onChange={e => {
                                             const newTableRows = [...tableRows]
                                             newTableRows[idx].y = +e.currentTarget.value
@@ -78,7 +78,7 @@ export default function MMQ() {
                                         } />
                                 </td>
                                 <td className="border-2 border-black w-full">
-                                    <input className="text-right w-full font-semibold" placeholder={`${idx + 1}º valor de σ`}
+                                    <input cy-data={`ipt_o_${idx}`} className="text-right w-full font-semibold" placeholder={`${idx + 1}º valor de σ`}
                                         type="number" name={`ipt_o_${idx}`} id={`ipt_o_${idx}`} value={row.o ?? ""} onChange={e => {
                                             const newTableRows = [...tableRows]
                                             newTableRows[idx].o = +e.currentTarget.value
@@ -87,7 +87,7 @@ export default function MMQ() {
                                         } />
                                 </td>
                                 <td className="w-[25px]">
-                                    <button className="text-sm bg-red-700 hover:bg-red-800 text-white ml-2 py-2 px-3 font-semibold rounded-md "
+                                    <button cy-data={`delete_row_${idx}`} className="text-sm bg-red-700 hover:bg-red-800 text-white ml-2 py-2 px-3 font-semibold rounded-md "
                                         tabIndex={-1} onClick={() => {
                                             const newTableRows = [...tableRows]
                                             newTableRows.splice(idx, 1)
@@ -98,7 +98,7 @@ export default function MMQ() {
                         ))}
                     </tbody>
                 </table>
-                <button className="py-2 px-3 bg-blue-500 text-white font-semibold text-base rounded-full drop-shadow-lg
+                <button cy-data="new_line" className="py-2 px-3 bg-blue-500 text-white font-semibold text-base rounded-full drop-shadow-lg
                              hover:bg-blue-600 active:scale-90 duration-75 mb-5"
                     tabIndex={-1} onClick={() => {
                         setTableRows([...tableRows, { x: undefined, y: undefined, o: undefined }])
